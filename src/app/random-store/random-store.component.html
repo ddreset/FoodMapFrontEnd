@@ -1,0 +1,36 @@
+<div class="container" style="margin: 10px auto;">
+    <div class="row align-items-center" style="width: 90%; margin: 0 auto">
+        <select [(ngModel)]="selectD" class="col-5 custom-select">
+            <option value="0">所有街道</option>
+            <option *ngFor="let district of districts" value="district.id">{{district.name}}</option>
+        </select>
+        <div class="col-2">
+        </div>
+        <select [(ngModel)]="selectT" class="col-5 custom-select">
+            <option value="0">所有种类</option>
+            <option *ngFor="let type of types" value="type.id">{{type.name}}</option>
+        </select>
+    </div>
+    <div *ngIf="!store" class="card" style="width: 20rem;margin: 10px auto;">
+        <div class="card-body">
+            <p class="card-text">选择街道和种类，然后点击底部按钮</p>
+        </div>
+    </div>
+    <div *ngIf="store" class="card" style="width: 20rem;margin: 10px auto;">
+        <carousel style="width:100%;">
+            <slide *ngFor="let picture of base64" style="height:0; width:100%; padding-bottom:80%;overflow: hidden;">
+                <img src={{picture}} alt="" style="width: 100%">
+            </slide>
+        </carousel>
+        <div class="card-body">
+            <h4 class="card-title">{{store.name}}</h4>
+            <p class="card-text">{{store.intro}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">人均：{{price()}} 元 </li>
+            <li class="list-group-item">地址：{{store.address}}</li>
+            <li class="list-group-item">联系方式：{{store.contact}}</li>
+        </ul>
+    </div>
+    <button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="random()">大力出奇迹</button>
+</div>

@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">美食地图</a>
+  <button class="navbar-toggler" type="button" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div (collapsed)="collapsed($event)"
+     (expanded)="expanded($event)"
+     [collapse]="isCollapsed" class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" [ngClass]="{'active': content=='stores' }">
+        <a class="nav-link" href="dashboard/stores">商店信息</a>
+      </li>
+      <li class="nav-item" [ngClass]="{'active': content=='others' }">
+        <a class="nav-link" href="dashboard/others">其他信息</a>
+      </li>
+      <li class="nav-item" [ngClass]="{'active': content=='pictures' }">
+        <a class="nav-link" href="dashboard/pictures">图片信息</a>
+      </li>
+      <!-- <li class="nav-item dropdown" dropdown>
+        <a dropdownToggle  class="nav-link dropdown-toggle" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <li role="menuitem"><a class="dropdown-item" href="#/dropdowns#nested">Action</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#/dropdowns#nested">Action1</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#/dropdowns#nested">Action2</a></li>
+          </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li> -->
+    </ul>
+    <!-- <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form> -->
+  </div>
+</nav>
+<app-dashboard-stores *ngIf="content=='stores'"></app-dashboard-stores>
+
+<app-dashboard-others *ngIf="content=='others'"></app-dashboard-others>
+
+<app-dashboard-pictures *ngIf="content=='pictures'"></app-dashboard-pictures>
+

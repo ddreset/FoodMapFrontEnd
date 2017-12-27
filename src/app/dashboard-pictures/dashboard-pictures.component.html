@@ -1,0 +1,74 @@
+<button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="add()">Create</button>
+<button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="delete()">Delete</button>
+<div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><input type="checkbox" name="all" name="all" (change)="pictureSelected = !pictureSelected;updateAllCheckBox()"/></th>
+          <th>#</th>
+          <th>store</th>
+          <th>store Id</th>
+          <th>picture</th>
+          <th>status</th>
+          <th></th>
+      </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let picture of pictures">
+              <td><input type="checkbox" value="{{picture.id}}" [checked]="pictureSelected" (change)="updateCheckBox(picture.id)"/></td>
+              <td>{{picture.id}}</td>
+              <td>{{getStoreName(picture.storeId)}}</td>
+              <td>{{picture.storeId}}</td>
+              <td><button type="button" class="btn" (click)="showPic(picture.pic)">{{picture.pic}}</button></td>
+              <td>{{picture.status}}</td>
+              <td><button type="button" class="btn btn-primary" (click)="update(picture)">修改</button></td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+<button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="add()">Create</button>
+<button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="delete()">Delete</button>
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div role="document" class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header" >
+          <h4 class="modal-title pull-left">{{title}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="childModal.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="app" *ngIf="action=='update'">
+            <dynamic-form [config]="config"
+              #form="dynamicForm"
+              (submit)="updateSubmit($event)">
+            </dynamic-form>
+          </div>
+          <div class="app" *ngIf="action=='add'">
+            <dynamic-form [config]="config"
+              #form="dynamicForm"
+              (submit)="addSubmit($event)"
+              (changeFile)="changeFile($event)">
+            </dynamic-form>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #picModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div role="document" class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" >
+              <h4 class="modal-title pull-left" style="width: 90%; word-wrap: break-word;">{{title}}</h4>
+              <button type="button" class="close pull-right" aria-label="Close" (click)="picModal.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <img id="showPic" style="width: 80%;" src={{base64}}>
+            </div>
+        </div>
+    </div>
+</div>

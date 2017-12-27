@@ -1,0 +1,82 @@
+<button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="add()">Create</button>
+<button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="delete()">Delete</button>
+<tabset [justified]="true">
+    <tab heading="类型 " (select)="currentTab = 'types'">
+        <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" name="all" name="all" (change)="typeSelected = !typeSelected;updateAllCheckBox()"/></th>
+                  <th>#</th>
+                  <th>name</th>
+                  <th>type_level</th>
+                  <th>status</th>
+                  <th></th>
+              </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let type of types">
+                      <td><input type="checkbox" value="{{type.id}}" [checked]="typeSelected" (change)="updateCheckBox(type.id)"/></td>
+                      <td>{{type.id}}</td>
+                      <td>{{type.name}}</td>
+                      <td>{{type.type_level}}</td>
+                      <td>{{type.status}}</td>
+                      <td><button type="button" class="btn btn-primary" (click)="update(type)">修改</button></td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+    </tab>
+    <tab heading="街区" (select)="currentTab = 'districts'">
+        <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" name="all" name="all" (change)="districtSelected = !districtSelected;updateAllCheckBox()"/></th>
+                  <th>#</th>
+                  <th>name</th>
+                  <th>status</th>
+                  <th></th>
+              </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let district of districts">
+                      <td><input type="checkbox" value="{{district.id}}" [checked]="districtSelected" (change)="updateCheckBox(district.id)"/></td>
+                      <td>{{district.id}}</td>
+                      <td>{{district.name}}</td>
+                      <td>{{district.status}}</td>
+                      <td><button type="button" class="btn btn-primary" (click)="update(district)">修改</button></td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+    </tab>
+</tabset>
+<button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="add()">Create</button>
+<button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="delete()">Delete</button>
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div role="document" class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header" >
+          <h4 class="modal-title pull-left">{{title}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="childModal.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="app">
+            <dynamic-form *ngIf="action=='update'"
+              [config]="config"
+              #form="dynamicForm"
+              (submit)="updateSubmit($event)">
+            </dynamic-form>
+            <dynamic-form *ngIf="action=='add'"
+              [config]="config"
+              #form="dynamicForm"
+              (submit)="addSubmit($event)">
+            </dynamic-form>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
